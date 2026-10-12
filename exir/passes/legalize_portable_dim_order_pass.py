@@ -1,5 +1,6 @@
 # Copyright (c) Meta Platforms, Inc. and affiliates.
 # All rights reserved.
+# Copyright 2026 Arm Limited and/or its affiliates.
 #
 # This source code is licensed under the BSD-style license found in the
 # LICENSE file in the root directory of this source tree.
@@ -55,6 +56,9 @@ class LegalizePortableDimOrderPass(ExportPass):
         )
         assert contiguous_dim_order is not None
 
+        # A layout conversion needs separate storage from its input.
+        input_meta.data.pop("_share_alloc_with_arg_idx", None)
+        input_meta.data.pop("_shared_alloc_offset", None)
         legalized_input = super().call_operator(
             self._copy_op,
             (input_arg,),
@@ -67,3 +71,9 @@ class LegalizePortableDimOrderPass(ExportPass):
             kwargs,
             meta,
         )
+
+
+class LegalizeViewCopyPass(LegalizePortableDimOrderPass):
+    """Normalize view_copy input dim order before runtime view lowering."""
+
+    _target_ops = {exir_ops.edge.aten.view_copy.default}

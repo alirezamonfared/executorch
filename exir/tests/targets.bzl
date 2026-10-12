@@ -1,3 +1,8 @@
+# Copyright 2026 Arm Limited and/or its affiliates.
+#
+# This source code is licensed under the BSD-style license found in the
+# LICENSE file in the root directory of this source tree.
+
 load("@fbcode_macros//build_defs:cpp_library.bzl", "cpp_library")
 load("@fbsource//xplat/executorch/build:runtime_wrapper.bzl", "runtime")
 load("@fbcode_macros//build_defs:python_unittest.bzl", "python_unittest")
@@ -457,6 +462,21 @@ def define_common_targets(is_fbcode = False):
             "//executorch/exir/capture:config",
             "//executorch/exir/passes:lib",
             "//executorch/runtime:runtime",
+        ],
+    )
+
+    python_unittest(
+        name = "test_legalize_portable_dim_order_pass",
+        srcs = [
+            "test_legalize_portable_dim_order_pass.py",
+        ],
+        deps = [
+            "//caffe2:torch",
+            "//executorch/exir:lib",
+            "//executorch/exir/capture:config",
+            "//executorch/exir/dialects:lib",
+            "//executorch/exir/passes:lib",
+            "//executorch/extension/pybindings:portable_lib",  # @manual
         ],
     )
 

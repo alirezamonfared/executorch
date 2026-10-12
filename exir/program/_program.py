@@ -49,6 +49,7 @@ from executorch.exir.passes import (
     dead_code_elimination_pass,
     EdgeToBackendOpsPass,
     LegalizePortableDimOrderPass,
+    LegalizeViewCopyPass,
     MemoryFormatOpsPass,
     OpReplacePass,
     remove_unused_parameters_pass,
@@ -800,6 +801,7 @@ def edge_to_executorch_passes(
 
     if not edge_compile_config._skip_dim_order:
         passes.insert(len(config.passes), LegalizePortableDimOrderPass())
+        passes.insert(len(config.passes) + 1, LegalizeViewCopyPass())
 
     return passes
 

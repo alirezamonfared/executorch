@@ -45,6 +45,7 @@ from executorch.exir.passes.insert_write_back_for_buffers_pass import (
 )
 from executorch.exir.passes.legalize_portable_dim_order_pass import (
     LegalizePortableDimOrderPass,
+    LegalizeViewCopyPass,
 )
 from executorch.exir.passes.memory_format_ops_pass import MemoryFormatOpsPass
 from executorch.exir.passes.memory_planning_pass import MemoryPlanningPass
@@ -83,6 +84,7 @@ __all__ = [
     "ToDevicePass",
     "EdgeToBackendOpsPass",
     "LegalizePortableDimOrderPass",
+    "LegalizeViewCopyPass",
     "MemoryFormatOpsPass",
     "MemoryPlanningPass",
     "HintBasedSymShapeEvalPass",
